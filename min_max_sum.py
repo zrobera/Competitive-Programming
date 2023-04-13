@@ -4,4 +4,4 @@ class Solution:
         nums.sort()
         for i in range(len(nums)//2):
             pair_sums.append(nums[i]+ nums[-(i+1)])
-        return max(pair_sums)
+        return max(pair_ssums)
