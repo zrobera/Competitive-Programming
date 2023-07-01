@@ -6,7 +6,6 @@ class Solution:
             for j in range(idx,len(nums2)):
                 if nums2[j] > nums1[i]:
                     ans.append(nums2[j])
-                    found = True
                     break
             else:
                 ans.append(-1)
