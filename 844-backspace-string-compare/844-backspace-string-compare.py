@@ -14,8 +14,6 @@ class Solution:
                     t_stack.pop()
             else:
                 t_stack.append(char)
-        new_s = "".join(s_stack)
-        new_t = "".join(t_stack)
-        return new_s == new_t
+        return s_stack == t_stack
         
         
