@@ -1,64 +1,60 @@
 class MyCircularDeque:
-
     def __init__(self, k: int):
+        self.size = 0
+        self.front = 0
+        self.rear = 0
         self.k = k
-        self.queue = []
-        self.count = 0
-
+        self.deque = [0] * k
+    
     def insertFront(self, value: int) -> bool:
-        if self.count >= self.k:
+        if self.isFull():
             return False
-        self.queue.insert(0,value)
-        self.count += 1
+        if self.isEmpty():
+            self.deque[self.front] = value
+        else:
+            self.front = (self.front - 1) % self.k
+            self.deque[self.front] = value
+        self.size += 1
         return True
 
     def insertLast(self, value: int) -> bool:
-        if self.count >= self.k:
+        if self.isFull():
             return False
-        self.queue.append(value)
-        self.count += 1
+        if self.isEmpty():
+            self.deque[self.rear] = value
+        else:
+            self.rear = (self.rear + 1) % self.k
+            self.deque[self.rear] = value
+        self.size += 1
         return True
 
     def deleteFront(self) -> bool:
-        if not self.queue:
+        if self.isEmpty():
             return False
-        self.queue.pop(0)
-        self.count -= 1
-        return True 
+        self.deque[self.front] = -1
+        self.front = (self.front + 1) % self.k
+        self.size -= 1
+        if self.isEmpty():
+            self.rear = self.front
+        return True
 
     def deleteLast(self) -> bool:
-        if not self.queue:
+        if self.isEmpty():
             return False
-        self.queue.pop()
-        self.count -= 1
-        return True 
-
+        self.deque[self.rear] = -1
+        self.rear = (self.rear - 1) % self.k
+        self.size -= 1
+        if self.isEmpty():
+            self.front = self.rear
+        return True
     def getFront(self) -> int:
-        if not self.queue:
-            return -1
-        return self.queue[0]
+        return -1 if self.isEmpty() else self.deque[self.front]
+
     def getRear(self) -> int:
-        if not self.queue:
-            return -1
-        return self.queue[self.count-1]
+        return -1 if self.isEmpty() else self.deque[self.rear]
+
     def isEmpty(self) -> bool:
-        if not self.queue:
-            return True
-        return False
+        return self.size == 0
 
     def isFull(self) -> bool:
-        if self.count == self.k:
-            return True
-        return False
-
-
-# Your MyCircularDeque object will be instantiated and called as such:
-# obj = MyCircularDeque(k)
-# param_1 = obj.insertFront(value)
-# param_2 = obj.insertLast(value)
-# param_3 = obj.deleteFront()
-# param_4 = obj.deleteLast()
-# param_5 = obj.getFront()
-# param_6 = obj.getRear()
-# param_7 = obj.isEmpty()
-# param_8 = obj.isFull()
+        return self.size == self.k
