@@ -3,7 +3,6 @@ class Solution:
         j =prev= cur = 0
         flip = False
         ans = 1
-        all_equal = True
         def assignComp(x,y):
             if y > x:
                 return 1
