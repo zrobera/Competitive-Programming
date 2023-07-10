@@ -17,9 +17,9 @@ class Solution:
             if cur == 3:
                 j = i
                 continue
-            elif cur == prev:
+            if cur == prev:
                 j = i-1
-            elif cur != prev:
+            else:
                 flip = True
             prev = cur
             ans = max(ans, i-j+1)
