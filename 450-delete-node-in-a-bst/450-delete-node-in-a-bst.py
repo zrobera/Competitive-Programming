@@ -13,16 +13,11 @@ class Solution:
             return root
         elif root.val < key:
             root.right = self.deleteNode(root.right, key)
-            return root
-        
+            return root      
         if not root.right:
-            temp = root.left
-            del root
-            return temp
+            return root.left
         elif not root.left:
-            temp = root.right
-            del root
-            return temp
+            return root.right
         else:
             succParent = root
             succ = root.right
@@ -36,5 +31,4 @@ class Solution:
                 succParent.right = succ.right
             
             root.val = succ.val
-            del succ
             return root
