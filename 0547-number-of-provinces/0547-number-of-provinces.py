@@ -4,7 +4,7 @@ class Solution:
         n = len(isConnected)
         for i in range(n):
             for j in range(n):
-                if isConnected[i][j] ==1:
+                if isConnected[i][j]:
                     graph[i].append(j)
         def dfs(node,visited):
             if node in visited:
