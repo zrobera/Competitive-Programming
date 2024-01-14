@@ -1,28 +1,31 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        letters_needed = {} 
-        i,j = 0, 0
-        missing = 0
-        min_str = [float("-inf"), float("inf")]
-        for char in t:
-            if char in letters_needed:
-                letters_needed[char] += 1
-            else:
-                letters_needed[char] = 1
-                missing += 1
-        for i in range(len(s)):
-            if s[i] in letters_needed:
-                letters_needed[s[i]] -= 1
-                if letters_needed[s[i]] == 0:
-                    missing -= 1
-            while missing == 0:
-                if i - j < (min_str[1] - min_str[0]):
-                    min_str[1] = i
-                    min_str[0] = j
-                if s[j] in letters_needed:
-                    letters_needed[s[j]] += 1
-                    if letters_needed[s[j]] > 0:
-                        missing += 1
-                j += 1
-        return "" if min_str[0] == float("-inf") else s[min_str[0]:min_str[1]+1]
-                
+        target = Counter(t)
+        print(target)
+
+        curr = defaultdict(int)
+        extras = defaultdict(int)
+        ans = [float('-inf'), float('inf')]
+        minm = float('inf')
+        left = 0
+
+        for right in range(len(s)):
+            if s[right] in target:
+                if target[s[right]] > curr[s[right]]:
+                    curr[s[right]] += 1
+                else:
+                    extras[s[right]] += 1
+            while curr == target:
+                if right-left+1 < minm:
+                    minm = right-left+1
+                    ans = [left,right+1]
+                if s[left] in curr:
+                    if extras[s[left]] > 0:
+                        extras[s[left]] -= 1
+                    else:
+                        curr[s[left]] -= 1
+                left += 1
+            
+        return s[ans[0]:ans[1]] if minm != float('inf') else ""
+
+        
