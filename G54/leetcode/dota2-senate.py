@@ -7,18 +7,14 @@ class Solution:
                 queue_d.append(i)
             else:
                 queue_r.append(i)
-        while True:
-            for i in range(len(senate)):
-                if not queue_r:
-                    return "Dire"
-                if not queue_d:
-                    return "Radiant"
-                elif senate[i] == "D" and queue_d[0] == i:
-                    queue_r.popleft()
-                    poped = queue_d.popleft()
-                    queue_d.append(poped)
-                elif senate[i] == "R" and queue_r[0] == i:
-                    queue_d.popleft()
-                    poped = queue_r.popleft()
-                    queue_r.append(poped)
-                
+        n = len(senate)
+        while queue_r and queue_d:
+            if queue_d[0] < queue_r[0]:
+                queue_r.popleft()
+                poped = queue_d.popleft()
+                queue_d.append(poped+n)
+            else:
+                queue_d.popleft()
+                poped = queue_r.popleft()
+                queue_r.append(poped+n)
+        return "Radiant" if queue_r else "Dire"
