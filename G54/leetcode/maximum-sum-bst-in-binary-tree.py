@@ -14,9 +14,6 @@ class Solution:
             left,total1,left_min,left_max = helper(root.left)
             right,total2,right_min,right_max = helper(root.right)
 
-            if not left and not right:
-                self.ans = max(self.ans,root.val)
-                return root , root.val , root.val, root.val
             if left_max < root.val < right_min:
                 total = root.val + total1 + total2
                 self.ans = max(self.ans, total)
